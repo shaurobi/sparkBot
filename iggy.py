@@ -3,6 +3,7 @@ import urllib2
 import json
 import random
 
+
 def sendSparkGET(url):
     """
     This method is used for:
@@ -10,24 +11,24 @@ def sendSparkGET(url):
         -Getting the username of the person who posted the message if a command is recognized
     """
     request = urllib2.Request(url,
-                            headers={"Accept" : "application/json",
-                                     "Content-Type":"application/json"})
-    request.add_header("Authorization", "Bearer "+bearer)
+                              headers={"Accept": "application/json",
+                                       "Content-Type": "application/json"})
+    request.add_header("Authorization", "Bearer " + bearer)
     contents = urllib2.urlopen(request).read()
     return contents
-   
+
+
 def sendSparkPOST(url, data):
     """
     This method is used for:
         -posting a message to the Spark room to confirm that a command was received and processed
     """
     request = urllib2.Request(url, json.dumps(data),
-                            headers={"Accept" : "application/json",
-                                     "Content-Type":"application/json"})
-    request.add_header("Authorization", "Bearer "+bearer)
+                              headers={"Accept": "application/json",
+                                       "Content-Type": "application/json"})
+    request.add_header("Authorization", "Bearer " + bearer)
     contents = urllib2.urlopen(request).read()
     return contents
-   
 
 
 @post('/')
@@ -59,23 +60,26 @@ def index(request):
         elif 'batsignal' in in_message:
             print "NANA NANA NANA NANA"
         elif 'who' in in_message:
-                msg = "Current supervisor on duty is Roger Greene (roggreen@cisco.com)"
+            msg = "Current supervisor on duty is Roger Greene (roggreen@cisco.com)"
         elif 'start' in in_message:
-                msg = "Click on the below link to start a webex \n http://cs.co/shaun"
+            msg = "Click on the below link to start a webex \n http://cs.co/shaun"
         elif 'chlorine' in in_message:
-                chlorine = None
-                chlorine = random.randrange(0, 100)
-                if chlorine > 80:
-                        msg = "Alert! Chlorine is dangerously high at " +str(chlorine) + "%"
-                else: 
-                        msg = "Chlorine currently at " + str(chlorine) + "%"
-if msg != None:
+            chlorine = None
+            chlorine = random.randrange(0, 100)
+            if chlorine > 80:
+                msg = "Alert! Chlorine is dangerously high at " + str(chlorine) + "%"
+            else:
+                msg = "Chlorine currently at " + str(chlorine) + "%"
+        if msg != None:
             print msg
             sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": msg})
-    return "true"
-    
+            return "true"
+
+
 ####CHANGE THESE VALUES#####
 bot_email = "iggy@sparkbot.io"
 bot_name = "Iggy"
-bearer = "OTE1ODlhNzctNDFhYi00YThmLTlhMWItNjAwZjk2YmVkMWJmNmEzZDRmZTctN2Uz"
+auth = open("auth.txt")
+bearer = auth.read()
+bearer = bearer.rstrip("\n")
 run_itty(server='wsgiref', host='0.0.0.0', port=80)
