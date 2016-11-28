@@ -73,7 +73,7 @@ def index(request):
                         msg = "Chlorine currently at " + str(chlorine) + "%"
     if msg != None:
         print msg
-        sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": msg})
+        sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "markdown": msg})
     return "true"
 
 ### set environment variables ###
