@@ -51,9 +51,9 @@ def index(request):
         if 'batman' in in_message or "whoareyou" in in_message:
             msg = "I'm Batman!"
         elif 'help' in in_message:
-            msg = """**Hi!** I'm Iggy the IoT Bot.
-    Ask for the **chlorine** level to see what the tanks doing.
-    You can also ask **who** is on duty and **start** a Webex meeting if needed"""
+            msg = ("**Hi!** I'm Iggy the IoT Bot. Here's a list of things you can do:\n"
+                   "    Ask for the **chlorine** level to see what the tanks doing.\n"
+                   "    You can also ask **who** is on duty and **start** a Webex meeting if needed")
         elif 'batcave' in in_message:
             message = result.get('text').split('batcave')[1].strip(" ")
             if len(message) > 0:
