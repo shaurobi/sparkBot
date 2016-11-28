@@ -3,13 +3,6 @@ import urllib2
 import json
 import random
 
-### set environment variables ###
-bot_email = "iggy@sparkbot.io"
-bot_name = "Iggy"
-auth = open("auth.txt")
-bearer = auth.read()
-bearer = bearer.rstrip("\n")
-run_itty(server='wsgiref', host='0.0.0.0', port=80)
 
 
 def sendSparkGET(url):
@@ -83,3 +76,11 @@ def index(request):
             print msg
             sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "text": msg})
             return "true"
+
+### set environment variables ###
+bot_email = "iggy@sparkbot.io"
+bot_name = "Iggy"
+auth = open("auth.txt")
+bearer = auth.read()
+bearer = bearer.rstrip("\n")
+run_itty(server='wsgiref', host='0.0.0.0', port=80)
