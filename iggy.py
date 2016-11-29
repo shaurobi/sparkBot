@@ -70,7 +70,7 @@ def index(request):
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], "markdown": msg})
     return "true"
 
-### set environment variables ###
+### set environment variables  ###
 bot_email = "iggy@sparkbot.io"
 bot_name = "Iggy"
 auth = open("auth.txt")
