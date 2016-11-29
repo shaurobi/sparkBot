@@ -36,9 +36,8 @@ def index(request):
     When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
     using the sendSparkGet() function.  The message text is parsed.  If an expected command is found in the message,
     further actions are taken. i.e.
-    /batman    - replies to the room with text
-    /batcave   - echoes the incoming text to the room
-    /batsignal - replies to the room with an image
+    /who - tells you who is on duty
+    /start - drops webex details into the meeting
     """
     webhook = json.loads(request.body)
     print webhook['data']['id']
@@ -75,5 +74,5 @@ bot_email = "iggy@sparkbot.io"
 bot_name = "Iggy"
 auth = open("auth.txt")
 bearer = auth.read()
-bearer = bearer.rstrip("\n")
+bearer = bearer.strip("\n")
 run_itty(server='wsgiref', host='0.0.0.0', port=80)
