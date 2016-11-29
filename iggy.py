@@ -55,9 +55,9 @@ def index(request):
             msg = 'Current supervisor on duty is Roger Greene (roggreen@cisco.com)'
         elif 'start' in in_message:
             msg = 'Click on the below link to start a Webex! \r\n http://cs.co/shaun'
-        elif 'source code'  in in_message:
-            msg = ("You can view my source code at this link:"
-                    "https://github.com/shaurobi/sparkBot/tree/master")
+        elif 'source code' in in_message:
+            msg = """You can view my source code at this link:
+                https://github.com/shaurobi/sparkBot/tree/master"""
         elif 'chlorine' in in_message:
             chlorine = None
             chlorine = random.randrange(0, 100)
