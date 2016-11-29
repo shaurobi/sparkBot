@@ -51,17 +51,7 @@ def index(request):
         if 'batman' in in_message or "whoareyou" in in_message:
             msg = "I'm Batman!"
         elif 'help' in in_message:
-            msg = ("""**Hi!** I'm Iggy the IoT Bot. Here's a list of things you can do -
-Ask for the **chlorine** level to see what the tanks doing.
-You can also ask **who** is on duty and **start** a Webex meeting if needed""")
-        elif 'batcave' in in_message:
-            message = result.get('text').split('batcave')[1].strip(" ")
-            if len(message) > 0:
-                msg = "The Batcave echoes, '{0}'".format(message)
-            else:
-                msg = "The Batcave is silent..."
-        elif 'batsignal' in in_message:
-            print "NANA NANA NANA NANA"
+            msg = ("**Hi!** I'm Iggy the IoT Bot. Here's a list of things you can do - Ask for the **chlorine** level to see what the tanks doing. You can also ask **who** is on duty and **start** a Webex meeting if needed")
         elif 'who' in in_message:
                 msg = "Current supervisor on duty is Roger Greene (roggreen@cisco.com)"
         elif 'start' in in_message:
