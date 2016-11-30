@@ -82,4 +82,4 @@ bot_name = "Iggy"
 auth = open("auth.txt")
 bearer = auth.read()
 bearer = bearer.strip("\n")
-run_itty(server='wsgiref', host='127.0.0.1', port=80)
+run_itty(server='wsgiref', host='0.0.0.0', port=80)
