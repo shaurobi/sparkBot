@@ -50,7 +50,11 @@ def index(request):
         if 'batman' in in_message or 'whoareyou' in in_message:
             msg = 'I\'m Batman!'
         elif 'help' in in_message:
-            msg = ("""Hi! I'm **Iggy the IoT Bot**. \nHere's a list of things you can do - \nAsk for the **chlorine** level to see what the tanks doing. \nYou can also ask **who** is on duty and **start** a Webex meeting if needed. \nYou can also request to view my **source code**""")
+            msg = ("""Hi! I'm **Iggy the IoT Bot**. \n
+    Here's a list of things you can do -
+    Ask for the **chlorine** level to see what the tanks doing.
+    You can also ask **who** is on duty and **start** a Webex meeting if needed.
+    You can also request to view my **source code**""")
             msgtype = "markdown"
         elif 'who' in in_message:
             msg = 'Current supervisor on duty is Roger Greene (roggreen@cisco.com)'
