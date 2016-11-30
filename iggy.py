@@ -50,7 +50,7 @@ def index(request):
         if 'batman' in in_message or 'whoareyou' in in_message:
             msg = 'I\'m Batman!'
         elif 'help' in in_message:
-            msg = ("""Hi! I'm Iggy the IoT Bot.
+            msg = ("""Hi! I'm **Iggy the IoT Bot**.
     Here's a list of things you can do - \nAsk for the **chlorine** level to see what the tanks doing.  '
     You can also ask **who** is on duty and **start** a Webex meeting if needed. \nYou can also request to view my **source code**""")
             msgtype = "markdown"
@@ -82,4 +82,4 @@ bot_name = "Iggy"
 auth = open("auth.txt")
 bearer = auth.read()
 bearer = bearer.strip("\n")
-run_itty(server='wsgiref', host='0.0.0.0', port=80)
+run_itty(server='wsgiref', host='127.0.0.1', port=80)
