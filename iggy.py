@@ -30,7 +30,7 @@ def sendSparkPOST(url, data):
 
 
 def buildmessage(in_message, webhook):
-    msg, msgtype, doc
+    msg, msgtype, doc = None
     if 'batman' in in_message or 'whoareyou' in in_message:
         msg = 'I\'m Batman!'
     elif 'help' in in_message:
