@@ -30,7 +30,7 @@ def sendSparkPOST(url, data):
 
 
 def buildmessage(in_message, webhook):
-    msg, msgtype, doc = str
+    msg, msgtype, doc = None
     if 'batman' in in_message or 'whoareyou' in in_message:
         msg = 'I\'m Batman!'
     elif 'help' in in_message:
@@ -69,7 +69,7 @@ def buildmessage(in_message, webhook):
     if doc != None:
         print repr(msg)
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg, "files" : doc})
-    else:
+    elif msg != None:
         print repr(msg)
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
 
