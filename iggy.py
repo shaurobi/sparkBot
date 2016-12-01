@@ -33,6 +33,7 @@ def buildmessage(in_message, webhook):
     msg = None
     if 'batman' in in_message or 'whoareyou' in in_message:
         msg = 'I\'m Batman!'
+
     elif 'help' in in_message:
         msg = ("""Hi! I'm **Iggy the IoT Bot**.
     Here's a list of things you can do -
@@ -40,15 +41,19 @@ def buildmessage(in_message, webhook):
     You can also ask **who** is on duty and **start** a Webex meeting if needed.
     You can also request to view my **source code**""")
         msgtype = "markdown"
+
     elif 'who' in in_message:
         msg = 'Current supervisor on duty is Roger Greene (roggreen@cisco.com)'
         msgtype = "text"
+
     elif 'start' in in_message:
         msg = 'Click on the below link to start a Webex! \r\n http://cs.co/shaun'
+
     elif 'source code' in in_message:
         msg = """You can view my source code at this link:
        https://github.com/shaurobi/sparkBot/tree/master"""
         msgtype = "text"
+
     elif 'chlorine' in in_message:
         chlorine = None
         chlorine = random.randrange(0, 100)
@@ -57,9 +62,17 @@ def buildmessage(in_message, webhook):
             msg = "Alert! Chlorine is dangerously high at " + str(chlorine) + "%"
         else:
             msg = "Chlorine currently at " + str(chlorine) + "%"
-    if msg != None:
+
+    elif 'beer' in in_message:
+        msg = "beer"
+        doc = "http://pngimg.com/upload/beer_PNG2388.png"
+
+    if doc != None:
         print repr(msg)
-        sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg})
+        sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg, "files" : doc})
+    else:
+        print repr(msg)
+        sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
 
 @post('/')
 def index(request):
