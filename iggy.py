@@ -29,7 +29,7 @@ def sendSparkPOST(url, data):
     return contents
 
 
-def buildmessage(in_message, webhook):
+def buildmessage(in_message, webhook, person):
     msg = None
     msgtype = None
     doc = None
@@ -46,9 +46,11 @@ def buildmessage(in_message, webhook):
     elif 'who' in in_message:
         msg = 'Current supervisor on duty is Roger Greene (roggreen@cisco.com)'
         msgtype = "text"
-
+    elif 'test' in in_mesasge:
+        msg = 'Message received loud and clear!, thanks <@personEmail:' + person '>'
     elif 'start' in in_message:
         msg = 'Click on the below link to start a Webex! \r\n http://cs.co/shaun'
+        msgtype = 'markdown'
 
     elif 'source code' in in_message:
         msg = """You can view my source code at this link:
@@ -93,7 +95,8 @@ def index(request):
     if webhook['data']['personEmail'] != bot_email:
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
-        buildmessage(in_message, webhook)
+        person = webhook['data']['personEmail']
+        buildmessage(in_message, webhook, person)
     return "true"
 
 
