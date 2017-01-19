@@ -47,7 +47,7 @@ def buildmessage(in_message, webhook, person):
         msg = 'Current supervisor on duty is Roger Greene (roggreen@cisco.com)'
         msgtype = "text"
     elif 'test' in in_mesasge:
-        msg = 'Message received loud and clear!, thanks <@personEmail:' + person '>'
+        msg = 'Message received loud and clear!, thanks <@personEmail:' + person + '>'
     elif 'start' in in_message:
         msg = 'Click on the below link to start a Webex! \r\n http://cs.co/shaun'
         msgtype = 'markdown'
