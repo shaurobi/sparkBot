@@ -46,6 +46,7 @@ def buildmessage(in_message, webhook, person):
     elif 'who' in in_message:
         msg = 'Current supervisor on duty is Roger Greene (roggreen@cisco.com)'
         msgtype = "text"
+
     elif 'test' in in_message:
         print person
         msg = 'Message received loud and clear!, thanks <@personEmail:' + person + '>'
@@ -89,6 +90,7 @@ def index(request):
     """
     webhook = json.loads(request.body)
     print webhook['data']['id']
+    print webhook['data']['personEmail']
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
     result = json.loads(result)
     msg = None
