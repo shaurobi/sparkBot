@@ -2,6 +2,7 @@ from itty import *
 import urllib2
 import json
 import random
+import urllib
 
 def sendSparkGET(url):
     """
@@ -74,12 +75,31 @@ def buildmessage(in_message, webhook, person):
         msg = "beer"
         doc = "http://pngimg.com/upload/beer_PNG2388.png"
 
+    elif 'weather' in in_message
+        new = in_message.partition('weather')
+        msg = "Weather in " + new + "is currently" + getWeather(new) + "degrees Celsius"
     if doc != None:
         print repr(msg)
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg, "files" : doc})
     elif msg != None:
         print repr(msg)
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
+
+def getWeather(city):
+    """
+
+    :type city: string
+    """
+    payload = {"q": "Sydney",
+               "APPID": "83fcd7c8d13fa1ebfa85e29312efa126",
+               "units": "metric"}
+    params = urllib.urlencode(payload)
+    request = "http://api.openweathermap.org/data/2.5/weather?" + params
+    request = urllib2.Request(request)
+    contents = urllib2.urlopen(request).read()
+    contents = json.loads(contents)
+    return contents['main']['temp']
+
 
 @post('/')
 def index(request):
