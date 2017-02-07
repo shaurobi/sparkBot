@@ -95,7 +95,7 @@ def getWeather(city):
 
     :type city: string
     """
-    payload = {"q": "Sydney",
+    payload = {"q": city,
                "APPID": "83fcd7c8d13fa1ebfa85e29312efa126",
                "units": "metric"}
     params = urllib.urlencode(payload)
