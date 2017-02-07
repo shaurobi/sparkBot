@@ -80,7 +80,6 @@ def buildmessage(in_message, webhook, person):
         new = str(new[2])
         msg1 = "Weather in " + new + " is currently " + str(getWeather(new)) + "degrees Celsius"
         msg = str(msg1)
-        print msg
         msgtype = "text"
     if doc != None:
         print repr(msg)
@@ -116,16 +115,14 @@ def index(request):
     /start - drops webex details into the meeting
     """
     webhook = json.loads(request.body)
-    print webhook['data']['id']
-    print webhook['data']['personEmail']
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
     result = json.loads(result)
     msg = None
-    print webhook
     if webhook['data']['personEmail'] != bot_email:
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
         person = webhook['data']['personEmail']
+        print in_message, person
         buildmessage(in_message, webhook, person)
     return "true"
 
