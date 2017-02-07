@@ -78,8 +78,8 @@ def buildmessage(in_message, webhook, person):
     elif 'weather' in in_message:
         new = in_message.partition('weather')
         new = str(new[2])
-        msg = "Weather in " + new + " is currently " + str(getWeather(new)) + "degrees Celsius"
-        msg = str(msg)
+        msg1 = "Weather in " + new + " is currently " + str(getWeather(new)) + "degrees Celsius"
+        msg = str(msg1)
         print msg
     if doc != None:
         print repr(msg)
