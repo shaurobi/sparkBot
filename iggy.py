@@ -86,6 +86,7 @@ def buildmessage(in_message, webhook, person):
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg, "files" : doc})
     elif msg != None:
         print repr(msg)
+        print "Standard message"
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
 
 def getWeather(city):
