@@ -76,7 +76,7 @@ def buildmessage(in_message, webhook, person):
         doc = "http://pngimg.com/upload/beer_PNG2388.png"
 
     elif 'weather' in in_message:
-        new = in_message.partition('weather')
+        new = str(in_message.partition('weather'))
         msg = "Weather in " + new + "is currently" + getWeather(new) + "degrees Celsius"
     if doc != None:
         print repr(msg)
