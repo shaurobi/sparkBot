@@ -48,6 +48,10 @@ def buildmessage(in_message, webhook, person):
         msg = 'Current supervisor on duty is Roger Greene (roggreen@cisco.com)'
         msgtype = "text"
 
+    elif 'cash me outside' in in_message
+        msg = 'HOW BOUH DAT'
+        msgtype = 'text'
+
     elif 'test' in in_message:
         print person
         msg = 'Message received loud and clear! thanks <@personEmail:' + person + '>'
