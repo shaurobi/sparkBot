@@ -118,6 +118,7 @@ def index(request):
     /who - tells you who is on duty
     /start - drops webex details into the meeting
     """
+    print request
     webhook = json.loads(request.body)
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
     result = json.loads(result)
