@@ -119,6 +119,7 @@ def getWeather(city):
 def getDefinition(word):
     # type: (object) -> object
     #goes out to oxford to get the definition of a word
+    word = str(word)
     url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/" + word +"/definitions"
     request = urllib2.Request(url, data=None,
                               headers = {'app_key': "ac9c1f927595ea9925e18e35022ee6c9",
