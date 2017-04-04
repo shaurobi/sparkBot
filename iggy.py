@@ -43,7 +43,9 @@ def buildmessage(in_message, webhook, person):
     Here's a list of things you can do -
     Ask for the **chlorine** level to see what the tanks doing.
     You can also ask **who** is on duty and **start** a Webex meeting if needed.
-    You can also request to view my **source code**""")
+    You can also request to view my **source code**
+    I can tell you the **weather** in a city -- Iggy weather Melbourne, as an example.
+    And you can ask me to **define** a word for you.""")
         msgtype = "markdown"
 
     elif 'who' in in_message:
