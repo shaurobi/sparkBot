@@ -90,8 +90,7 @@ def buildmessage(in_message, webhook, person):
 
     elif 'define' in in_message:
         word1 = in_message.partition('define')
-        word1 = str(word1[2])
-        print word1
+        word1 = str(word1[2]).lstrip()
         msg1 = word1 + ": " + getDefinition(word1)
         msg = str(msg1)
         msgtype = "text"
