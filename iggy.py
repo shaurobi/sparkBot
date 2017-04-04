@@ -85,6 +85,14 @@ def buildmessage(in_message, webhook, person):
         msg1 = "Weather in " + city + " is currently " + str(getWeather(city)) + "degrees Celsius"
         msg = str(msg1)
         msgtype = "text"
+
+    elif 'define' in in_message:
+        word = in_message.partition('define')
+        word = str(word[2])
+        msg1 = word + ": " + getDefinition(word)
+        msg = str(msg1)
+        msgtype = "text"
+
     if doc != None:
         print repr(msg)
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg, "files" : doc})
@@ -108,6 +116,17 @@ def getWeather(city):
     contents = json.loads(contents)
     return contents['main']['temp']
 
+def getDefinition(word):
+    # type: (object) -> object
+    #goes out to oxford to get the definition of a word
+    url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/" + word +"/definitions"
+    request = urllib2.Request(url, data=None,
+                              headers = {'app_key': "ac9c1f927595ea9925e18e35022ee6c9",
+                                        'app_id': "047a9de2",})
+    result = urllib2.urlopen(request).read()
+    result = json.loads(result)
+    definition = result["results"][0]["lexicalEntries"][0]["entries"][0]["senses"][0]["definitions"][0]
+    return str(definition)
 
 @post('/')
 def index(request):
