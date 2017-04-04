@@ -4,6 +4,7 @@ import json
 import random
 import urllib
 
+
 def sendSparkGET(url):
     """
     This method is used for:
@@ -11,11 +12,12 @@ def sendSparkGET(url):
         -Getting the username of the person who posted the message if a command is recognized
     """
     request = urllib2.Request(url,
-                            headers={"Accept" : "application/json",
-                                     "Content-Type":"application/json"})
-    request.add_header("Authorization", "Bearer "+bearer)
+                              headers={"Accept": "application/json",
+                                       "Content-Type": "application/json"})
+    request.add_header("Authorization", "Bearer " + bearer)
     contents = urllib2.urlopen(request).read()
     return contents
+
 
 def sendSparkPOST(url, data):
     """
@@ -23,9 +25,9 @@ def sendSparkPOST(url, data):
         -posting a message to the Spark room to confirm that a command was received and processed
     """
     request = urllib2.Request(url, json.dumps(data),
-                            headers={"Accept" : "application/json",
-                                     "Content-Type":"application/json"})
-    request.add_header("Authorization", "Bearer "+bearer)
+                              headers={"Accept": "application/json",
+                                       "Content-Type": "application/json"})
+    request.add_header("Authorization", "Bearer " + bearer)
     contents = urllib2.urlopen(request).read()
     return contents
 
@@ -87,19 +89,21 @@ def buildmessage(in_message, webhook, person):
         msgtype = "text"
 
     elif 'define' in in_message:
-        word = in_message.partition('define')
-        word = str(word[2])
-        msg1 = word + ": " + getDefinition(word)
+        word1 = in_message.partition('define')
+        word1 = str(word1[2])
+        msg1 = word1 + ": " + getDefinition(word1)
         msg = str(msg1)
         msgtype = "text"
 
     if doc != None:
         print repr(msg)
-        sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg, "files" : doc})
+        sendSparkPOST("https://api.ciscospark.com/v1/messages",
+                      {"roomId": webhook['data']['roomId'], msgtype: msg, "files": doc})
     elif msg != None:
         print repr(msg)
         print "Standard message"
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
+
 
 def getWeather(city):
     """
@@ -116,18 +120,21 @@ def getWeather(city):
     contents = json.loads(contents)
     return contents['main']['temp']
 
+
 def getDefinition(word):
-    # type: (object) -> object
-    #goes out to oxford to get the definition of a word
+    # type: word = string
+    # goes out to oxford to get the definition of a word
     word = str(word)
-    url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/" + word +"/definitions"
+    url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/" + word + "/definitions"
     request = urllib2.Request(url, data=None,
-                              headers = {'app_key': "ac9c1f927595ea9925e18e35022ee6c9",
-                                        'app_id': "047a9de2",})
+                              headers={'app_key': "ac9c1f927595ea9925e18e35022ee6c9",
+                                       'app_id': "047a9de2",})
     result = urllib2.urlopen(request).read()
     result = json.loads(result)
     definition = result["results"][0]["lexicalEntries"][0]["entries"][0]["senses"][0]["definitions"][0]
-    return str(definition)
+    definition = str(definition)
+    return definition
+
 
 @post('/')
 def index(request):
