@@ -33,6 +33,10 @@ def sendSparkPOST(url, data):
 
 
 def buildmessage(in_message, webhook, person):
+    """
+    This method checks the message content for a specific keyword, matches the keyword to an output, and then builds the
+    return message which will then be posted back into the room in which it was received
+    the "webhook" variable here is the incoming webhook defined later in the code. """
     msg = None
     msgtype = None
     doc = None
@@ -95,20 +99,23 @@ def buildmessage(in_message, webhook, person):
         msg1 = word1 + ": " + getDefinition(word1)
         msg = str(msg1)
         msgtype = "text"
-
+### once we find the keyword, match to the message type below
+### if there's a doc to be attached:
     if doc != None:
         print repr(msg)
         sendSparkPOST("https://api.ciscospark.com/v1/messages",
                       {"roomId": webhook['data']['roomId'], msgtype: msg, "files": doc})
+### else if there's no doc/file to attach, but there's still a matched message:
     elif msg != None:
         print repr(msg)
         print "Standard message"
+        ### after we log the message to console, refer it to sendSparkPOST() for message creation
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
 
 
 def getWeather(city):
     """
-
+    Gets the weather for CITY and returns the main temperature in celsius.
     :type city: string
     """
     payload = {"q": city,
@@ -141,10 +148,8 @@ def getDefinition(word):
 def index(request):
     """
     When messages come in from the webhook, they are processed here.  The message text needs to be retrieved from Spark,
-    using the sendSparkGet() function.  The message text is parsed.  If an expected command is found in the message,
-    further actions are taken. i.e.
-    /who - tells you who is on duty
-    /start - drops webex details into the meeting
+    using the sendSparkGet() function.  The message text is parsed and passed to buildmessage(), which then sends the message.
+    No further action taken here.
     """
     print request
     webhook = json.loads(request.body)
@@ -163,7 +168,10 @@ def index(request):
 ### set environment variables  ###
 bot_email = "iggy@sparkbot.io"
 bot_name = "Iggy"
+### auth.txt is a local file, in the same directory as iggy.py, containing the API key for the specific BOT.
+### Script won't work without it.
 auth = open("auth.txt")
 bearer = auth.read()
 bearer = bearer.strip("\n")
+###run_itty specifies the local server and default port. The IP of your server must be specified when you set up the Webhooks.
 run_itty(server='wsgiref', host='0.0.0.0', port=80)
