@@ -143,7 +143,7 @@ def index(request):
     print(request)
     webhook = json.loads(request.body)
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
-    print(result)
+    print(result['data']['text'])
     msg = None
     if webhook['data']['personEmail'] != bot_email:
         in_message = result.get('text', '').lower()
