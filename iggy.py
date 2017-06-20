@@ -147,9 +147,9 @@ def index(request):
 # TODO -- log incoming requests to warning file
     webhook = json.loads(request.body)
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
-    print(result['text'],result['personEmail'])
     msg = None
     if webhook['data']['personEmail'] != bot_email:
+        print(result['text'], result['personEmail'])
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
         person = webhook['data']['personEmail']
