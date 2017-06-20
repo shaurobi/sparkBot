@@ -38,9 +38,10 @@ def buildmessage(in_message, webhook, person):
     msg = None
     msgtype = None
     doc = None
-# TODO -- add logging for incoming messages vs incoming webhook requests.
+# TODO -- add logging for incoming messages as info
     if 'batman' in in_message or 'whoareyou' in in_message:
         msg = "I'm Batman!"
+        msgtype = "text"
     elif 'help' in in_message:
         msg = ("""Hi! I'm **Iggy the IoT Bot**. Here's a list of things you can do -
     Ask for the CHLORINE level to see what the tanks doing.
@@ -143,6 +144,7 @@ def index(request):
     using the sendSparkGet() function.  The message text is parsed and passed to buildmessage(), which then sends the message.
     No further action taken here.
     """
+# TODO -- log incoming requests to warning file
     print(request)
     webhook = json.loads(request.body)
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
