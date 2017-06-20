@@ -21,9 +21,9 @@ def sendSparkPOST(url, data):
     This method is used for:
         -posting a message to the Spark room to confirm that a command was received and processed
     """
-    print("sending " + data + "to " + url)
+    print("sending " + str(data) + "to " + url)
     contents = requests.post(url, data = json.dumps(data), headers=headers)
-
+    print(contents.status_code)
     return contents.json()
 
 
