@@ -12,7 +12,7 @@ def sendSparkGET(url):
     """
     print("getting from " + url)
     contents = requests.get(url, headers= headers)
-    print("response from GET =" + contents.status_code)
+    print("response from GET =" + str(contents.status_code))
     return contents.json()
 
 
