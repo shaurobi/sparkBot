@@ -60,7 +60,6 @@ def buildmessage(in_message, webhook, person):
         msgtype = 'text'
 
     elif 'test' in in_message:
-        print(person)
         msg = 'Message received loud and clear! thanks <@personEmail:' + person + '>'
         msgtype = "markdown"
 
@@ -158,8 +157,8 @@ def index(request):
 
 
 ### set environment variables  ###
-bot_email = "Flasky@sparkbot.io"
-bot_name = "Flasky"
+bot_email = "iggy@sparkbot.io"
+bot_name = "Iggy"
 ### auth.txt is a local file, in the same directory as iggy.py, containing the API key for the specific BOT.
 ### Script won't work without it.
 auth = open("auth.txt")
