@@ -12,7 +12,7 @@ def sendSparkGET(url):
     """
     print("getting from " + url)
     contents = requests.get(url, headers= headers)
-    print(contents.status_code)
+    print("response from GET =" + contents.status_code)
     return contents.json()
 
 
@@ -23,8 +23,8 @@ def sendSparkPOST(url, data):
     """
     print("sending " + str(data) + "to " + url)
     contents = requests.post(url, data = json.dumps(data), headers=headers)
-    print(contents.status_code)
-    return contents.json()
+    print("response from POST =" + contents.status_code)
+    return contents.status_code
 
 
 def buildmessage(in_message, webhook, person):
@@ -145,7 +145,6 @@ def index(request):
     No further action taken here.
     """
 # TODO -- log incoming requests to warning file
-    print(request)
     webhook = json.loads(request.body)
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
     print(result['text'],result['personEmail'])
@@ -154,7 +153,6 @@ def index(request):
         in_message = result.get('text', '').lower()
         in_message = in_message.replace(bot_name, '')
         person = webhook['data']['personEmail']
-        print(in_message, person)
         buildmessage(in_message, webhook, person)
     return "true"
 
