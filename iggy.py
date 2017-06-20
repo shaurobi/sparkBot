@@ -158,7 +158,7 @@ def index(request):
 
 
 ### set environment variables  ###
-bot_email = "flasky@sparkbot.io"
+bot_email = "Flasky@sparkbot.io"
 bot_name = "Flasky"
 ### auth.txt is a local file, in the same directory as iggy.py, containing the API key for the specific BOT.
 ### Script won't work without it.
