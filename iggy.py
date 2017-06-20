@@ -10,7 +10,9 @@ def sendSparkGET(url):
         -retrieving message text, when the webhook is triggered with a message
         -Getting the username of the person who posted the message if a command is recognized
     """
+    print("getting from " + url)
     contents = requests.get(url, headers= headers)
+    print(contents.status_code)
     return contents.json()
 
 
@@ -19,7 +21,9 @@ def sendSparkPOST(url, data):
     This method is used for:
         -posting a message to the Spark room to confirm that a command was received and processed
     """
+    print("sending " + data + "to " + url)
     contents = requests.post(url, data = json.dumps(data), headers=headers)
+
     return contents.json()
 
 
@@ -102,7 +106,6 @@ def buildmessage(in_message, webhook, person):
 ### else if there's no doc/file to attach, but there's still a matched message:
     elif msg != None:
         print(repr(msg))
-        print("Standard message")
         ### after we log the message to console, refer it to sendSparkPOST() for message creation
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
 
