@@ -3,6 +3,7 @@ import requests
 import json
 import random
 
+
 def sendSparkGET(url):
     """
     This method is used for:
@@ -33,6 +34,7 @@ def buildmessage(in_message, webhook, person):
     msg = None
     msgtype = None
     doc = None
+# TODO -- add logging for incoming messages vs incoming webhook requests.
     if 'batman' in in_message or 'whoareyou' in in_message:
         msg = "I'm Batman!"
     elif 'help' in in_message:
@@ -141,7 +143,7 @@ def index(request):
     print(request)
     webhook = json.loads(request.body)
     result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
-    result = json.loads(result)
+    print(result['data']['personEmail'],result['data']['text'])
     msg = None
     if webhook['data']['personEmail'] != bot_email:
         in_message = result.get('text', '').lower()
@@ -165,4 +167,4 @@ headers = {"Accept": "application/json",
            "Authorization": "Bearer " + bearer}
 
 ###run_itty specifies the local server and default port. The IP of your server must be specified when you set up the Webhooks.
-#run_itty(server='wsgiref', host='0.0.0.0', port=80)
+run_itty(server='wsgiref', host='0.0.0.0', port=80)
