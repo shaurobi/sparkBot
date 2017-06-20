@@ -23,7 +23,7 @@ def sendSparkPOST(url, data):
     """
     print("sending " + str(data) + "to " + url)
     contents = requests.post(url, data = json.dumps(data), headers=headers)
-    print("response from POST =" + contents.status_code)
+    print("response from POST =" + str(contents.status_code))
     return contents.status_code
 
 
