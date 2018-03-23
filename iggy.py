@@ -91,6 +91,11 @@ def buildmessage(in_message, webhook, person):
         msg = str(msg1)
         msgtype = "text"
 
+    elif 'roomid' in in_message:
+        msg1 = "RoomID for this room is " + webhook['data']['roomID']
+        msg= str(msg1)
+        msgtype = "text"
+
     elif 'define' in in_message:
         word1 = in_message.partition('define')
         word1 = str(word1[2]).lstrip()
