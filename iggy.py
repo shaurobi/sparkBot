@@ -92,7 +92,7 @@ def buildmessage(in_message, webhook, person):
         msgtype = "text"
 
     elif 'roomid' in in_message:
-        msg1 = "RoomID for this room is " + webhook['data']['roomID']
+        msg1 = "RoomID for this room is " + webhook['data']['roomId']
         msg= str(msg1)
         msgtype = "text"
 
