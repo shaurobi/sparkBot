@@ -96,10 +96,15 @@ def buildmessage(in_message, webhook, person):
         msg= str(msg1)
         msgtype = "text"
 
-    elif 'peoplecount' in in_message:
+    elif 'members' in in_message:
         peopleCount = random.randrange(100,10000)
         msgtype = "text"
-        msg = "There are currently " + str(peopleCount) + " people in the Members section"
+        msg = "There are currently " + str(peopleCount) + " people in the Member's Section"
+
+    elif 'southern' in in_message:
+        peopleCount = random.randrange(1000,20000)
+        msgtype = "text"
+        msg = "There are currently " + str(peopleCount) + " people in the Southern Stand"
 
     elif 'define' in in_message:
         word1 = in_message.partition('define')
