@@ -112,6 +112,11 @@ def buildmessage(in_message, webhook, person):
         msg1 = word1 + ": " + getDefinition(word1)
         msg = str(msg1)
         msgtype = "text"
+    elif 'dadjoke' in in_message:
+        msg = getDadJoke()
+        msgtype = "text"
+
+
 ### once we find the keyword, match to the message type below
 ### if there's a doc to be attached:
     if doc != None:
@@ -125,6 +130,17 @@ def buildmessage(in_message, webhook, person):
         sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
 
 
+def getDadJoke():
+    """
+    Gets a random Dad joke and returns it as a string
+    :return joke: string
+    """
+    header1 ={ "Accept":"application/json"}
+    uri = "https://icanhazdadjoke.com/"
+    joke = requests.get(uri, headers=header1)
+    joke = joke.json()
+    return str(joke['joke'])
+
 def getWeather(city):
     """
     Gets the weather for CITY and returns the main temperature in celsius.
@@ -134,7 +150,7 @@ def getWeather(city):
                "APPID": "83fcd7c8d13fa1ebfa85e29312efa126",
                "units": "metric"}
     uri = "http://api.openweathermap.org/data/2.5/weather?"
-    contents =requests.post(uri, params=payload)
+    contents = requests.post(uri, params=payload)
     contents = contents.json()
     return contents['main']['temp']
 
