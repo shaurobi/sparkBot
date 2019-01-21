@@ -4,7 +4,7 @@ import json
 import random
 
 
-def sendSparkGET(url):
+def webexGET(url):
     """
     This method is used for:
         -retrieving message text, when the webhook is triggered with a message
@@ -16,10 +16,10 @@ def sendSparkGET(url):
     return contents.json()
 
 
-def sendSparkPOST(url, data):
+def webexPOST(url, data):
     """
     This method is used for:
-        -posting a message to the Spark room to confirm that a command was received and processed
+        -posting a message to the Webex space to confirm that a command was received and processed
     """
     print("sending " + str(data) + "to " + url)
     contents = requests.post(url, data = json.dumps(data), headers=headers)
@@ -92,7 +92,7 @@ def buildmessage(in_message, webhook, person):
         msgtype = "text"
 
     elif 'roomid' in in_message:
-        msg1 = "RoomID for this room is " + webhook['data']['roomId']
+        msg1 = "Room ID for this room is " + webhook['data']['roomId']
         msg= str(msg1)
         msgtype = "text"
 
@@ -121,13 +121,13 @@ def buildmessage(in_message, webhook, person):
 ### if there's a doc to be attached:
     if doc != None:
         print(repr(msg))
-        sendSparkPOST("https://api.ciscospark.com/v1/messages",
+        webexPOST("https://api.ciscospark.com/v1/messages",
                       {"roomId": webhook['data']['roomId'], msgtype: msg, "files": doc})
 ### else if there's no doc/file to attach, but there's still a matched message:
     elif msg != None:
         print(repr(msg))
         ### after we log the message to console, refer it to sendSparkPOST() for message creation
-        sendSparkPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
+        webexPOST("https://api.ciscospark.com/v1/messages", {"roomId": webhook['data']['roomId'], msgtype: msg,})
 
 
 def getDadJoke():
@@ -176,7 +176,7 @@ def index(request):
     """
 # TODO -- log incoming requests to warning file
     webhook = json.loads(request.body)
-    result = sendSparkGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
+    result = webexGET('https://api.ciscospark.com/v1/messages/{0}'.format(webhook['data']['id']))
     msg = None
     if webhook['data']['personEmail'] != bot_email:
         print(result['text'], result['personEmail'])
